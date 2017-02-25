@@ -898,6 +898,15 @@ export default {
     }
   },
   patients: {
+    new: {
+      title: 'New Patient'
+    },
+    edit: {
+      title: 'Edit Patient'
+    },
+    index: {
+      title: 'Patient Listing'
+    },
     navigation: {
       photos: 'Photos',
       general: 'General',
