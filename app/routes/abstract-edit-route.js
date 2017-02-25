@@ -4,10 +4,19 @@ import Ember from 'ember';
 const { get } = Ember;
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
-  editTitle: null,
   hideNewButton: false,
   modelName: null,
-  newTitle: null,
+  i18n: Ember.inject.service(),
+  newTitle: Ember.computed('routeName', function() {
+    let i18n = this.get('i18n');
+    let route = this.get('routeName').split('.');
+    return i18n.t(`${route[0]}.new.title`);
+  }),
+  editTitle: Ember.computed('routeName', function() {
+    let i18n = this.get('i18n');
+    let route = this.get('routeName').split('.');
+    return i18n.t(`${route[0]}.edit.title`);
+  }),
 
   _createNewRecord(params) {
     return new Ember.RSVP.Promise(function(resolve) {

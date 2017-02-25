@@ -4,6 +4,7 @@ import PouchDbMixin from 'hospitalrun/mixins/pouchdb';
 import ProgressDialog from 'hospitalrun/mixins/progress-dialog';
 export default Ember.Route.extend(PouchDbMixin, ProgressDialog, AuthenticatedRouteMixin, {
   database: Ember.inject.service(),
+  i18n: Ember.inject.service(),
   filterParams: null,
   firstKey: null,
   hideNewButton: false,
@@ -12,7 +13,11 @@ export default Ember.Route.extend(PouchDbMixin, ProgressDialog, AuthenticatedRou
   newButtonAction: null,
   newButtonText: null,
   nextStartKey: null,
-  pageTitle: null,
+  pageTitle: Ember.computed('routeName', function() {
+    let i18n = this.get('i18n');
+    let route = this.get('routeName').split('.');
+    return i18n.t(`${route[0]}.index.title`);
+  }),
 
   _getFilterParams(params) {
     let filterByList = [];
